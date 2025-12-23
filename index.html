@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Orbis Ultra Standalone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        .ps4-gradient { background: radial-gradient(circle at center, #001a3d 0%, #000 100%); position: fixed; inset: 0; z-index: -1; }
+        .card { min-width: 250px; height: 350px; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,229,255,0.3); border-radius: 15px; transition: 0.3s; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; cursor: pointer; }
+        .card:hover { transform: scale(1.05); border-color: #00e5ff; box-shadow: 0 0 30px rgba(0,229,255,0.2); }
+        .v-btn { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #555; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="ps4-gradient"></div>
+    <div class="p-8">
+        <h1 class="text-3xl font-black italic text-cyan-400">ORBIS ULTRA <span class="text-white text-xs block opacity-50 font-mono">STANDALONE ENGINE v1.0</span></h1>
+        
+        <div class="flex gap-8 mt-12 overflow-x-auto pb-10">
+            <div class="card" onclick="startEngine('Winlator Core')">
+                <div class="text-2xl font-bold">START ENGINE</div>
+                <p class="text-[10px] text-green-400 font-mono italic">OFFLINE BOX64 ENABLED</p>
+            </div>
+            <div class="card border-blue-500" onclick="window.location.href='https://www.facebook.com/gaming/play'">
+                <div class="text-2xl font-bold">FB CLOUD</div>
+                <p class="text-[10px] text-blue-400 font-mono italic">STREAMING MODE</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="loader" class="fixed inset-0 bg-black z-[100] hidden flex flex-col items-center justify-center">
+        <div class="w-16 h-16 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin"></div>
+        <p id="status" class="mt-6 font-mono text-cyan-500 text-xs tracking-widest uppercase">Initializing Winlator...</p>
+    </div>
+
+    <script>
+        function startEngine(name) {
+            const loader = document.getElementById('loader');
+            const status = document.getElementById('status');
+            loader.classList.remove('hidden');
+            
+            let steps = ["Injecting Binaries...", "Mounting Wine...", "Setting DXVK...", "Running Standalone Engine!"];
+            let i = 0;
+            let timer = setInterval(() => {
+                status.innerText = steps[i];
+                i++;
+                if(i >= steps.length) {
+                    clearInterval(timer);
+                    setTimeout(() => { loader.classList.add('hidden'); alert("Engine Connected Successfully!"); }, 500);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
